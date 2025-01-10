@@ -1,0 +1,24 @@
+--------------------------------------
+Ubuntu 24.04
+
+--------------------------------------
+PHP 8.3
+
+--------------------------------------
+laravel/framework 10
+
+
+--------------------------------------
+/home/project/mode/repo/
+
+/home/carmovia/staging/
+    carmovia-laravel/
+    carmovia-vue/
+
+/home/carmovia/beta/
+    carmovia-laravel/
+    carmovia-vue/
+
+/home/carmovia/live/
+    carmovia-laravel/
+    carmovia-vue/

@@ -1,0 +1,39 @@
+
+
+-------------------------------
+GENERATE SSH RSA KEYS LOCAL PC:
+ssh-keygen -t rsa -b 4096 -C "my@mail.com"
+
+-------------------------------
+SET PUBLIC [KEY-SSH-RSA]  INTO SERVER:
+
+FROM:
+C:\work\carmovia\ssh-ci-cd\id_rsa_github.pub
+
+TO:
+nano ~/.ssh/authorized_keys
+
+!!!! copy last new line from string!!!
+
+
+-------------------------------
+SETPRIVATE [KEY-SSH-RSA] INTO GITHUB SECRET:
+
+FROM:
+C:\work\carmovia\ssh-ci-cd\id_rsa_github
+!!!! copy last new line from string!!!
+
+TO:
+https://github.com/COMPANY/REPO/settings/secrets/actions
+
+
+-------------------------------
+GITHUB SECRET:
+SSH_PRIVATE_KEY
+
+-------------------------------
+GITHUB VARS:
+SSH_HOST 1.1.1.225  [server ip]
+SSH_PORT 22
+SSH_USER foouser
+

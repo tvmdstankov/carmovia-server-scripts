@@ -1,0 +1,45 @@
+--------------------------------------------------
+https://linuxcapable.com/how-to-install-phpmyadmin-with-lemp-on-ubuntu-linux/
+
+
+--------------------------------------------------
+sudo apt update
+
+sudo apt install mariadb-server
+
+sudo systemctl status MariaDB
+
+sudo systemctl enable MariaDB
+
+
+--------------------------------------------------
+sudo mysql_secure_installation
+
+
+--------------------------------------------------
+sudo mariadb -u root
+
+CREATE USER db_user IDENTIFIED BY 'pass';
+
+GRANT ALL PRIVILEGES ON *.* TO 'db_user'@'localhost' IDENTIFIED BY 'pass' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
+
+QUIT;
+
+
+--------------------------------------------------
+helpers bakup:
+mysqldump -u db_user -pdb_user db_name > backup.sql
+
+
+--------------------------------------------------
+helpers restore:
+mysql -u db_user -pdb_user db_name < backup.sql
+
+
+--------------------------------------------------
+create databases:
+staging
+beta
+live

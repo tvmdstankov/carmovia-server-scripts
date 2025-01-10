@@ -1,0 +1,112 @@
+--------------------------------------------------
+sudo apt install nginx
+
+
+--------------------------------------------------
+LARAVEL nginx conf:
+/etc/nginx/sites-available/api.domain.com 
+
+
+server {
+
+    # listen 80;
+    # server_name api.domain.com www.api.domain.com;
+
+    listen 8101;
+    server_name 112.334.216.22;
+    
+    root /home/project/mode/repo/public;
+
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+--------------------------------------------------
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+root /home/project/mode/repo/public;
+    project: project folder
+    mode: staging , beta, live
+    repo: the name of the repository
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+php8.3 !!!!
+
+sudo ln -s /etc/nginx/sites-available/api.domain.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+sudo chown -R www-data:www-data /home/project/mode/repo/public
+sudo chmod -R 775 /home/project/mode/repo/storage 
+sudo chmod -R 775 /home/project/mode/repo/bootstrap/cache
+... run after setup laravel!!!
+
+http://112.334.216.22:8101
+--------------------------------------------------
+
+
+
+--------------------------------------------------
+VUE nginx conf:
+/etc/nginx/sites-available/vue.domain.com 
+
+
+server {
+
+    #listen 8102;
+    #server_name vue.domain.com www.vue.domain.com;
+    
+    listen 8102;
+    server_name 112.334.216.22;
+
+    root /home/project/mode/repo/dist;  
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html; 
+    }
+
+    location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg|woff|woff2|eot|ttf|otf)$ {
+        expires 1y;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        try_files $uri =404;
+    }
+
+}
+--------------------------------------------------
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ root /home/project/mode/repo/dist;  
+    project: project folder
+    mode: staging , beta, live
+    repo: the name of the repository
+
+
+sudo ln -s /etc/nginx/sites-available/vue.domain.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+sudo chown -R www-data:www-data /home/project/mode/repo/dist
+... run after build vue!!!
+
+http://112.334.216.22:8102
+--------------------------------------------------
+
+--------------------------------------------------
+helper check nginx group:
+sudo cat /etc/nginx/nginx.conf
+user www-data;

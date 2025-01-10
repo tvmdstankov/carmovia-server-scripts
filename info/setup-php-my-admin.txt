@@ -1,0 +1,74 @@
+--------------------------------------------------
+
+https://www.phpmyadmin.net/downloads/
+
+https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-english.tar.xz
+
+cd /
+wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-english.tar.xz
+
+tar xvf phpMyAdmin-5.2.1-english.tar.xz
+
+sudo mv phpMyAdmin-*/ /var/www/phpmyadmin
+sudo mkdir /var/www/phpmyadmin/tmp
+
+
+--------------------------------------------------
+sudo apt install pwgen
+pwgen -s 32 1
+... generate  "blowfish_secret"
+
+
+sudo cp /var/www/phpmyadmin/config.sample.inc.php /var/www/phpmyadmin/config.inc.php
+
+sudo nano /var/www/phpmyadmin/config.inc.php
+$cfg['Servers'][$i]['host'] = '112.334.216.22';
+
+$cfg['blowfish_secret'] = 'generated_blowfish_secret'; 
+--------------------------------------------------
+
+
+--------------------------------------------------
+sudo chown -R www-data:www-data /var/www/phpmyadmin/
+sudo find /var/www/phpmyadmin/ -type d -exec chmod 755 {} \;
+sudo find /var/www/phpmyadmin/ -type f -exec chmod 644 {} \;
+
+
+--------------------------------------------------
+sudo nano /etc/nginx/sites-available/phpmyadmin
+
+----------------------------------------------------------
+server {
+  listen 9001;
+  server_name 112.334.216.22;
+  root /var/www/phpmyadmin/;
+  index index.php index.html index.htm index.nginx-debian.html;
+
+  access_log /var/log/nginx/phpmyadmin_access.log;
+  error_log /var/log/nginx/phpmyadmin_error.log;
+
+  location / {
+    try_files $uri $uri/ /index.php;
+  }
+
+  location ~ ^/(doc|sql|setup)/ {
+    deny all;
+  }
+
+  location ~ \.php$ {
+    fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    include snippets/fastcgi-php.conf;
+  }
+
+  location ~ /\.ht {
+    deny all;
+  }
+}
+----------------------------------------------------------
+
+
+sudo ln -s /etc/nginx/sites-available/phpmyadmin /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx

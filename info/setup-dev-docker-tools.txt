@@ -1,0 +1,81 @@
+
+cd /home/project
+
+---------------------------------
+nano ./dev.yml
+
+services:
+
+  mailpit:
+    image: 'axllent/mailpit:latest'
+    ports:
+      - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+      - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+    networks:
+      - dev-network
+
+networks:
+  dev-network:
+    driver: bridge
+    
+    
+
+---------------------------------------
+docker stop $(docker ps -a -q)
+docker ps
+
+docker-compose -f ./dev.yml build
+docker-compose -f ./dev.yml up -d
+docker-compose -f ./dev.yml down
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+MAILPIT:
+
+---------------------------------------
+OPEN UI:
+http://185.203.216.135:8025/
+
+
+---------------------------------------
+SETUP LARAVEL ENV:
+
+MAIL_MAILER=smtp
+MAIL_HOST=127.0.0.1
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="from name"
+
+MAIL_INVOICE_MAILER=smtp
+MAIL_INVOICE_HOST=127.0.0.1
+MAIL_INVOICE_PORT=1025
+MAIL_INVOICE_USERNAME=null
+MAIL_INVOICE_PASSWORD=null
+MAIL_INVOICE_ENCRYPTION=null
+MAIL_INVOICE_FROM_ADDRESS="inv@example.com"
+MAIL_INVOICE_FROM_NAME="from name INV"
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+---------------------------------------
+DOCKER AND DOCKER COMPOSE INSTALL:
+
+sudo apt update
+sudo apt install docker.io
+
+
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+
+
+sudo apt install docker-compose
+
+
+docker-compose version
+
+

@@ -1,0 +1,21 @@
+
+
+---------------------------------
+crontab -e
+
+* * * * * curl -s http://127.0.0.1:8101/api/cronjob > /dev/null 2>&1
+* * * * * curl -s http://127.0.0.1:8201/api/cronjob > /dev/null 2>&1
+* * * * * curl -s http://127.0.0.1:8301/api/cronjob > /dev/null 2>&1
+
+
+curl http://127.0.0.1:8101/api/cronjob
+
+-------------------------------
+staging
+http://185.203.216.135:8101/api/cronjob
+
+beta
+http://185.203.216.135:8201/api/cronjob
+
+live
+http://185.203.216.135:8301/api/cronjob

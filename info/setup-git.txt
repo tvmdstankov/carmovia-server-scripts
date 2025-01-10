@@ -1,0 +1,22 @@
+
+-----------------------------
+ssh-keygen -t rsa -b 4096 -C "my@mail.com"
+
+cat ~/.ssh/id_rsa.pub
+
+git clone https://github.com/потребител/репо.git .
+
+... go to github setup and setup "~/.ssh/id_rsa.pub"
+
+-----------------------------
+staging  
+
+cd /home/carmovia/staging/carmovia-laravel
+git clone git@github.com:VANOVATE-GmbH/carmovia-laravel.git .
+
+cd /home/carmovia/staging/carmovia-vue
+git clone git@github.com:VANOVATE-GmbH/carmovia-vue.git .
+
+
+-----------------------------
+git config --global --add safe.directory /home/carmovia/staging/carmovia-laravel
