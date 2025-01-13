@@ -1,0 +1,38 @@
+-----------------------------
+sudo apt update 
+sudo apt install certbot 
+sudo apt install python3-certbot-nginx
+
+-----------------------------
+sudo certbot --nginx -d beta.carmovia.com -d www.beta.carmovia.com 
+sudo certbot --nginx -d beta-api.carmovia.com -d www.beta-api.carmovia.com 
+
+-----------------------------
+contact@carmovia.com
+
+-----------------------------
+sudo systemctl reload nginx
+
+
+-----------------------------
+cd laravel folder
+php artisan config:clear
+php artisan optimize:clear
+
+nano .env
+APP_URL=https://.....
+VUE_FRONT_END_URL=https://.....
+
+-----------------------------
+cd vue folder
+
+nano .env
+VITE_API_URL="https://....."
+
+
+vite build
+
+
+------------------------------------
+sudo certbot renew --dry-run
+

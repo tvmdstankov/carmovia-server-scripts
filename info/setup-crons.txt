@@ -3,9 +3,14 @@
 ---------------------------------
 crontab -e
 
-* * * * * curl -s http://127.0.0.1:8101/api/cronjob > /dev/null 2>&1
-* * * * * curl -s http://127.0.0.1:8201/api/cronjob > /dev/null 2>&1
-* * * * * curl -s http://127.0.0.1:8301/api/cronjob > /dev/null 2>&1
+* * * * * curl -s http://127.0.0.1:8101/api/cronjob  > /home/carmovia/staging/cron_laravel.log 2>&1
+* * * * * curl -s https://beta-api.carmovia.com/api/cronjob  > /home/carmovia/beta/cron_laravel.log 2>&1
+* * * * * curl -s http://127.0.0.1:8301/api/cronjob > /home/carmovia/live/cron_laravel.log 2>&1
+
+
+
+
+
 
 
 curl http://127.0.0.1:8101/api/cronjob
@@ -19,3 +24,15 @@ http://185.203.216.135:8201/api/cronjob
 
 live
 http://185.203.216.135:8301/api/cronjob
+
+
+
+
+
+0 2 * * * /home/carmovia/backup_db.sh staging > /home/carmovia/staging/cron_backup_db.log 2>&1
+0 2 * * * /home/carmovia/backup_db.sh beta    > /home/carmovia/beta/cron_backup_db.log 2>&1
+0 2 * * * /home/carmovia/backup_db.sh live    > /home/carmovia/live/cron_backup_db.log 2>&1
+
+* * * * * curl -s http://127.0.0.1:8101/api/cronjob          > /home/carmovia/staging/cron_laravel.log 2>&1
+* * * * * curl -s https://beta-api.carmovia.com/api/cronjob  > /home/carmovia/beta/cron_laravel.log 2>&1
+
