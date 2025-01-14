@@ -11,6 +11,7 @@ sudo certbot --nginx -d beta-api.carmovia.com -d www.beta-api.carmovia.com
 contact@carmovia.com
 
 -----------------------------
+sudo nginx -t
 sudo systemctl reload nginx
 
 
@@ -32,6 +33,15 @@ VITE_API_URL="https://....."
 
 vite build
 
+
+-----------------------------
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+python3-certbot-nginx change files in 
+/etc/nginx/sites-available after this
+command 
+sudo certbot --nginx -d beta.carmovia.com -d www.beta.carmovia.com
+please check tha /etc/nginx/sites-available/default 
+file for changes !!!!! 
 
 ------------------------------------
 sudo certbot renew --dry-run
