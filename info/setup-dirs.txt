@@ -1,0 +1,13 @@
+
+-----------------------------
+
+mkdir -p /home/carmovia/staging/carmovia-laravel/storage/app/private/filesystem
+chmod -R 775 /home/carmovia/staging/carmovia-laravel/storage
+
+
+mkdir -p /home/carmovia/beta/carmovia-laravel/storage/app/private/filesystem
+chmod -R 775 /home/carmovia/beta/carmovia-laravel/storage
+
+
+mkdir -p /home/carmovia/live/carmovia-laravel/storage/app/private/filesystem
+chmod -R 775 /home/carmovia/live/carmovia-laravel/storage
