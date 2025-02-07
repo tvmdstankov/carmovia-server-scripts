@@ -14,11 +14,14 @@ laravel/framework 10
 /home/carmovia/staging/
     carmovia-laravel/
     carmovia-vue/
+    carmovia-appointment/
 
 /home/carmovia/beta/
     carmovia-laravel/
     carmovia-vue/
+    carmovia-appointment/
 
 /home/carmovia/live/
     carmovia-laravel/
     carmovia-vue/
+    carmovia-appointment/

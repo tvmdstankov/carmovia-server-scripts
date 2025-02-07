@@ -1,0 +1,136 @@
+
+name: ci-cd-live
+
+
+on:
+  push:
+    branches: [ "live" ]  
+
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  
+  deploy:
+ 
+    runs-on: ubuntu-latest
+
+    env:
+      
+      SSH_HOST: ${{ vars.SSH_HOST }}
+      SSH_PORT: ${{ vars.SSH_PORT }}
+      SSH_USER: ${{ vars.SSH_USER }}
+      SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    steps:
+
+      # ...............................
+      - name: DEBUG
+        run: |
+          
+          echo "SSH_HOST $SSH_HOST"
+          echo "SSH_PORT $SSH_PORT"
+          echo "SSH_USER $SSH_USER"
+          echo "SSH_KEY ****"
+      
+      # ..............................
+      - name: CHECKOUT
+        uses: actions/checkout@v4
+
+
+      # ..............................
+      - name: SSH
+        run: |
+          # Save SSH private key to a file and restrict permissions
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # mkdir -p ~/.ssh
+          # echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          # chmod 600 ~/.ssh/id_ed25519
+
+          # Add SSH_HOST to known_hosts to avoid verification prompts
+          ssh-keyscan -p $SSH_PORT "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      # ..............................    
+      - name: DEPLOY
+        run: |
+          ssh "$SSH_USER@$SSH_HOST" -p $SSH_PORT 'sh -s' << 'EOF'
+
+            set -e
+
+            echo " "
+            echo "------------------------------------"
+            echo "HELLO FROM SERVER"
+
+            echo " "
+            echo "------------------------------------"
+            echo "THUS IS carmovia-appointment LIVE CI-CD"
+
+            FOLDER=/home/carmovia/live/carmovia-appointment
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: cd $FOLDER"
+            cd $FOLDER
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: ls $FOLDER"
+            ls
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: git stash"
+            git stash
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: git fetch origin"
+            git fetch origin
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: git checkout live"
+            git checkout live
+
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: git branch"
+            git branch
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: git pull origin live"
+            git pull origin live
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: node -v"
+            node -v
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: npm -v"
+            npm -v
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: vite -v"
+            vite -v
+
+            echo " "
+            echo "------------------------------------"
+            echo "command: vite build"
+            vite build
+
+            echo " "
+            echo "------------------------------------"
+            echo "COMPLETED!!!" 
+
+          EOF
+

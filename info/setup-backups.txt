@@ -1,14 +1,13 @@
-------------------------------
-create beckup in server hosting accaout (like cpanel)
 
 
 ------------------------------
 use this template 
-/info/setup-backups/db
+/info/setup-backups/backup.sh
+/info/setup-backups/restore.sh
 
 ------------------------------
-chmod +x ./backup_db.sh 
-chmod +x ./restore_db.sh
+chmod +x ./backup.sh 
+chmod +x ./restore.sh
 
 ------------------------------
 ./backup_db.sh staging 
@@ -17,14 +16,14 @@ chmod +x ./restore_db.sh
 
 ---------------------------------
 crontab -e
-0 2 * * * /home/carmovia/backup_db.sh staging > /dev/null 2>&1
-0 2 * * * /home/carmovia/backup_db.sh beta > /dev/null 2>&1
-0 2 * * * /home/carmovia/backup_db.sh live > /dev/null 2>&1
+0 2 * * * /home/carmovia/backup.sh staging > /dev/null 2>&1
+0 2 * * * /home/carmovia/backup.sh beta > /dev/null 2>&1
+0 2 * * * /home/carmovia/backup.sh live > /dev/null 2>&1
 
 ------------------------------
 RESTORE:
-./restore_db.sh staging 20250110
-./restore_db.sh beta 20250110
-./restore_db.sh live 20250110
+./restore.sh staging 20250110
+./restore.sh beta 20250110
+./restore.sh live 20250110
 
 

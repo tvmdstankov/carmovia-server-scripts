@@ -17,6 +17,44 @@ git clone git@github.com:VANOVATE-GmbH/carmovia-laravel.git .
 cd /home/carmovia/staging/carmovia-vue
 git clone git@github.com:VANOVATE-GmbH/carmovia-vue.git .
 
+cd /home/carmovia/staging/carmovia-appointment
+git clone git@github.com:UmutDasdemir/carmovia-appointment.git .
+
+git config --global --add safe.directory /home/carmovia/staging/carmovia-laravel
+git config --global --add safe.directory /home/carmovia/staging/carmovia-vue
+git config --global --add safe.directory /home/carmovia/staging/carmovia-appointment
+
 
 -----------------------------
-git config --global --add safe.directory /home/carmovia/staging/carmovia-laravel
+beta  
+
+cd /home/carmovia/beta/carmovia-laravel
+git clone git@github.com:VANOVATE-GmbH/carmovia-laravel.git .
+
+cd /home/carmovia/beta/carmovia-vue
+git clone git@github.com:VANOVATE-GmbH/carmovia-vue.git .
+
+cd /home/carmovia/beta/carmovia-appointment
+git clone git@github.com:UmutDasdemir/carmovia-appointment.git .
+
+git config --global --add safe.directory /home/carmovia/beta/carmovia-laravel
+git config --global --add safe.directory /home/carmovia/beta/carmovia-vue
+git config --global --add safe.directory /home/carmovia/beta/carmovia-appointment
+
+
+
+-----------------------------
+live  
+
+cd /home/carmovia/live/carmovia-laravel
+git clone git@github.com:VANOVATE-GmbH/carmovia-laravel.git .
+
+cd /home/carmovia/live/carmovia-vue
+git clone git@github.com:VANOVATE-GmbH/carmovia-vue.git .
+
+cd /home/carmovia/live/carmovia-appointment
+git clone git@github.com:UmutDasdemir/carmovia-appointment.git .
+
+git config --global --add safe.directory /home/carmovia/live/carmovia-laravel
+git config --global --add safe.directory /home/carmovia/live/carmovia-vue
+git config --global --add safe.directory /home/carmovia/live/carmovia-appointment
